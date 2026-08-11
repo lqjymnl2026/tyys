@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天韵艺术 · 家长端 · 课时中心（原型）</title>
+<style>
+:root{
+  --navy:#1e2a4a; --gold:#c9a227; --bg:#f4f5f9; --card:#fff; --line:#e8eaf1;
+  --text:#2b3245; --muted:#8a93a8; --blue:#3b6ef5; --green:#23a55a; --red:#e5484d; --orange:#f0883a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#e6e8f0;display:flex;justify-content:center;padding:28px 12px}
+.phone{width:390px;background:var(--bg);border-radius:32px;border:10px solid #1c1f2b;box-shadow:0 24px 60px rgba(0,0,0,.25);overflow:hidden;min-height:780px;display:flex;flex-direction:column;position:relative}
+.statusbar{background:#fff;padding:8px 18px 6px;font-size:12px;display:flex;justify-content:space-between;color:#2b3245}
+/* 顶部 */
+.head{background:linear-gradient(135deg,var(--navy) 0%,#2b3a66 100%);color:#fff;padding:6px 16px 18px;position:relative}
+.head .row{display:flex;align-items:center;gap:10px}
+.head .back{font-size:20px;cursor:pointer;width:28px}
+.head .ttl{font-size:16px;font-weight:700}
+.head .sub{margin-left:auto;font-size:11px;color:#b9c3e0;display:flex;align-items:center;gap:4px}
+/* 剩余课时卡片 */
+.balance{background:linear-gradient(135deg,#2b3a66,#3d4f85);border-radius:16px;margin:14px 14px 0;padding:18px;color:#fff;box-shadow:0 10px 24px rgba(30,42,74,.25)}
+.balance .lb{font-size:12px;color:#aeb9da;display:flex;justify-content:space-between;align-items:center}
+.balance .num{font-size:44px;font-weight:800;letter-spacing:-1px;margin:6px 0 2px}
+.balance .num small{font-size:15px;font-weight:600;color:#c9d4f2}
+.balance .meta{display:flex;gap:18px;font-size:12px;color:#c9d4f2;margin-top:8px}
+.balance .meta b{color:#ffd97a}
+/* 课时包 */
+.packs{padding:14px;display:flex;flex-direction:column;gap:12px}
+.pack{background:#fff;border-radius:14px;padding:14px;box-shadow:0 3px 10px rgba(30,42,74,.05)}
+.pack .top{display:flex;align-items:center;gap:8px}
+.pack .tag{background:#eef4ff;color:var(--blue);font-size:11px;padding:2px 8px;border-radius:10px;font-weight:600}
+.pack .tag.warn{background:#fff3e6;color:var(--orange)}
+.pack .tag.frozen{background:#eef1f7;color:var(--muted)}
+.pack .name{font-weight:700;font-size:14px}
+.pack .more{margin-left:auto;color:var(--muted);font-size:12px}
+.pack .nums{display:flex;align-items:baseline;gap:6px;margin:10px 0 8px}
+.pack .nums .remain{font-size:26px;font-weight:800;color:var(--navy)}
+.pack .nums .total{font-size:12px;color:var(--muted)}
+.pack .exp{margin-left:auto;font-size:11px;color:var(--orange)}
+.pack .bar{height:8px;background:#eef1f7;border-radius:6px;overflow:hidden}
+.pack .bar i{display:block;height:100%;border-radius:6px;background:linear-gradient(90deg,var(--gold),#e0b83a)}
+.pack .bar i.blue{background:linear-gradient(90deg,var(--blue),#7aa0f8)}
+.pack .bar i.gray{background:#c6cddd}
+/* Tabs */
+.tabs{display:flex;margin:4px 14px 0;background:#fff;border-radius:12px;padding:4px;gap:4px}
+.tabs div{flex:1;text-align:center;padding:9px 0;font-size:13px;color:var(--muted);border-radius:9px;cursor:pointer}
+.tabs div.active{background:var(--navy);color:#fff;font-weight:600}
+.list{padding:12px 14px;flex:1;display:flex;flex-direction:column;gap:10px;overflow:auto}
+.item{background:#fff;border-radius:12px;padding:12px;display:flex;gap:10px;align-items:center;box-shadow:0 2px 8px rgba(30,42,74,.04)}
+.item .ic{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.ic.green{background:#e8f7ee}.ic.gold{background:#fdf3d7}.ic.red{background:#ffecec}.ic.blue{background:#e8f0ff}.ic.gray{background:#eef1f7}
+.item .mid{flex:1;min-width:0}
+.item .mid .t{font-size:13.5px;font-weight:600}
+.item .mid .d{font-size:11.5px;color:var(--muted);margin-top:3px}
+.item .amt{font-size:14px;font-weight:800}
+.item .amt.plus{color:var(--green)}
+.item .amt.minus{color:var(--red)}
+.item .amt.gray{color:var(--muted)}
+/* 底部操作 */
+.footer{padding:12px 14px 16px;background:#fff;border-top:1px solid var(--line)}
+.footer .btn{background:linear-gradient(135deg,var(--gold),#a8841c);color:#fff;border:none;width:100%;padding:14px;border-radius:14px;font-size:15px;font-weight:700;cursor:pointer;box-shadow:0 8px 18px rgba(201,162,39,.35)}
+/* TabBar */
+.tabbar{display:flex;background:#fff;border-top:1px solid var(--line);padding:8px 0 12px}
+.tabbar div{flex:1;text-align:center;font-size:10.5px;color:var(--muted);cursor:pointer}
+.tabbar div .i{font-size:20px;display:block;margin-bottom:2px}
+.tabbar div.active{color:var(--gold)}
+.tabbar div.active .i{filter:drop-shadow(0 2px 4px rgba(201,162,39,.4))}
+.badge2{position:relative}
+.badge2::after{content:'2';position:absolute;top:-4px;right:14px;background:var(--red);color:#fff;font-size:9px;border-radius:9px;padding:1px 5px}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="statusbar"><span>9:41</span><span>5G 100%</span></div>
+  <div class="head">
+    <div class="row">
+      <span class="back">‹</span>
+      <span class="ttl">课时中心</span>
+      <span class="sub">👧 乐乐 ▾</span>
+    </div>
+    <div class="balance">
+      <div class="lb"><span>剩余总课时</span><span style="font-size:11px;color:#ffd97a">🎁 含赠课 1.5 节</span></div>
+      <div class="num">32.5 <small>节</small></div>
+      <div class="meta"><span>本月已消 <b>4.5</b></span><span>本月已购 <b>20</b></span><span>临期包 <b>1</b></span></div>
+    </div>
+  </div>
+
+  <div class="packs">
+    <div class="pack">
+      <div class="top">
+        <span class="name">钢琴一对一 · 20节</span><span class="tag">买20赠2</span>
+        <span class="more">详情 ›</span>
+      </div>
+      <div class="nums"><span class="remain">12.5</span><span class="total">/ 22 节（正课 12.5 + 赠 0）</span><span class="exp">⏳ 2027-03-15 到期</span></div>
+      <div class="bar"><i style="width:57%"></i></div>
+    </div>
+    <div class="pack">
+      <div class="top">
+        <span class="name">钢琴小组课 1对2</span><span class="tag warn">⚠ 临期</span>
+        <span class="more">详情 ›</span>
+      </div>
+      <div class="nums"><span class="remain">3.0</span><span class="total">/ 10 节</span><span class="exp">⏳ 12 天后到期</span></div>
+      <div class="bar"><i class="blue" style="width:30%"></i></div>
+    </div>
+    <div class="pack" style="opacity:.75">
+      <div class="top">
+        <span class="name">考级辅导 · 10节</span><span class="tag frozen">已用完</span>
+        <span class="more">详情 ›</span>
+      </div>
+      <div class="nums"><span class="remain" style="color:var(--muted)">0</span><span class="total">/ 10 节</span><span class="exp" style="color:var(--muted)">2026-05-01 到期</span></div>
+      <div class="bar"><i class="gray" style="width:100%"></i></div>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <div class="active">课时流水</div>
+    <div>缴费记录</div>
+  </div>
+
+  <div class="list">
+    <div class="item"><span class="ic green">➖</span><div class="mid"><div class="t">消课 · 钢琴一对一</div><div class="d">08-09 周六 10:00 李老师 · 钢琴房A</div></div><span class="amt minus">-1.0</span></div>
+    <div class="item"><span class="ic gold">🎁</span><div class="mid"><div class="t">赠送 · 买20赠2活动</div><div class="d">07-20 赠课到账</div></div><span class="amt plus">+2.0</span></div>
+    <div class="item"><span class="ic green">➖</span><div class="mid"><div class="t">消课 · 小组课1对2</div><div class="d">07-18 周六 14:00 陈老师 · 多功能厅</div></div><span class="amt minus">-0.6</span></div>
+    <div class="item"><span class="ic blue">🧊</span><div class="mid"><div class="t">冻结 · 请假（病假）</div><div class="d">07-15 已审批，课时已冻结不扣减</div></div><span class="amt gray">0</span></div>
+    <div class="item"><span class="ic green">➖</span><div class="mid"><div class="t">消课 · 钢琴一对一</div><div class="d">07-12 周日 10:00 李老师 · 钢琴房A</div></div><span class="amt minus">-1.0</span></div>
+    <div class="item"><span class="ic gold">💰</span><div class="mid"><div class="t">充值 · 钢琴一对一20节</div><div class="d">07-01 微信支付 ¥3,600</div></div><span class="amt plus">+20.0</span></div>
+  </div>
+
+  <div class="footer"><button class="btn">🎹 购买课时包 / 续费</button></div>
+
+  <div class="tabbar">
+    <div><span class="i">🏠</span>首页</div>
+    <div><span class="i">🗓</span>课表</div>
+    <div class="active"><span class="i">⏱</span>课时</div>
+    <div><span class="i badge2">👤</span>我的</div>
+  </div>
+</div>
+</body>
+</html>
