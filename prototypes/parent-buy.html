@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天韵艺术 · 家长端 · 购买课时包（原型）</title>
+<style>
+:root{--navy:#1e2a4a;--gold:#c9a227;--bg:#f4f5f9;--card:#fff;--line:#e8eaf1;--text:#2b3245;--muted:#8a93a8;--blue:#3b6ef5;--green:#23a55a;--red:#e5484d}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#e6e8f0;display:flex;justify-content:center;padding:28px 12px}
+.phone{width:390px;background:var(--bg);border-radius:32px;border:10px solid #1c1f2b;box-shadow:0 24px 60px rgba(0,0,0,.25);overflow:hidden;min-height:780px;display:flex;flex-direction:column}
+.statusbar{background:#fff;padding:8px 18px 6px;font-size:12px;display:flex;justify-content:space-between;color:#2b3245}
+.head{background:linear-gradient(135deg,var(--navy),#2b3a66);color:#fff;padding:8px 16px 16px;display:flex;align-items:center;gap:10px}
+.head .back{font-size:20px;cursor:pointer;width:28px}
+.head .ttl{font-size:16px;font-weight:700}
+.notice{margin:14px 14px 0;background:#fdf3d7;border:1px solid #f0dfa8;border-radius:12px;padding:10px 12px;font-size:12px;color:#8a6a12}
+.notice b{color:#a8841c}
+.packs{padding:14px;display:flex;flex-direction:column;gap:12px;flex:1;overflow:auto}
+.pack{background:#fff;border:2px solid var(--line);border-radius:16px;padding:16px;cursor:pointer;position:relative;transition:border-color .15s}
+.pack.active{border-color:var(--gold);background:#fffdf5}
+.pack .hot{position:absolute;top:-9px;right:14px;background:linear-gradient(135deg,var(--gold),#a8841c);color:#fff;font-size:10.5px;padding:2px 10px;border-radius:10px;font-weight:700}
+.pack .top{display:flex;align-items:center;gap:8px}
+.pack .name{font-weight:800;font-size:15px}
+.pack .tag{background:#eef4ff;color:var(--blue);font-size:11px;padding:2px 8px;border-radius:10px}
+.pack .tag.gold{background:#fdf3d7;color:#a8841c}
+.pack .radio{width:20px;height:20px;border-radius:50%;border:2px solid #c9cfdd;margin-left:auto;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.pack.active .radio{border-color:var(--gold)}
+.pack.active .radio::after{content:'';width:10px;height:10px;border-radius:50%;background:var(--gold)}
+.pack .price{display:flex;align-items:baseline;margin:12px 0 4px}
+.pack .price .rmb{font-size:14px;font-weight:800;color:var(--red)}
+.pack .price .num{font-size:28px;font-weight:800;color:var(--red);letter-spacing:-1px}
+.pack .price .unit{font-size:12px;color:var(--muted);margin-left:6px}
+.pack .price .orig{margin-left:auto;font-size:12px;color:var(--muted);text-decoration:line-through}
+.pack .desc{font-size:12px;color:var(--muted);line-height:1.7}
+/* footer */
+.footer{background:#fff;border-top:1px solid var(--line);padding:12px 14px 14px}
+.footer .row{display:flex;align-items:center;margin-bottom:10px}
+.footer .row .lb{font-size:13px;color:var(--muted)}
+.footer .row .pay{font-size:13px;font-weight:600;display:flex;align-items:center;gap:6px}
+.footer .row .amt{margin-left:auto;font-size:13px;color:var(--muted)}
+.footer .row .amt b{font-size:22px;color:var(--red);font-weight:800}
+.footer .btn{width:100%;border:none;border-radius:14px;padding:14px;font-size:15px;font-weight:700;color:#fff;background:linear-gradient(135deg,var(--gold),#a8841c);cursor:pointer;box-shadow:0 8px 18px rgba(201,162,39,.35)}
+.tabbar{display:flex;background:#fff;border-top:1px solid var(--line);padding:8px 0 12px}
+.tabbar div{flex:1;text-align:center;font-size:10.5px;color:var(--muted);cursor:pointer}
+.tabbar div .i{font-size:20px;display:block;margin-bottom:2px}
+.tabbar div.active{color:var(--gold)}
+</style>
+</head>
+<body>
+<div class="phone">
+  <div class="statusbar"><span>9:41</span><span>5G 100%</span></div>
+  <div class="head"><span class="back">‹</span><span class="ttl">购买课时包</span></div>
+  <div class="notice">🎉 <b>暑期特惠</b>：购买 40 节及以上加赠 3 节 · 活动截止 08-31</div>
+  <div class="packs">
+    <div class="pack" onclick="pick(this)">
+      <div class="top"><span class="name">钢琴一对一 · 10节</span><span class="tag">有效期6个月</span><span class="radio"></span></div>
+      <div class="price"><span class="rmb">¥</span><span class="num">1,900</span><span class="unit">折合 190 元/节</span></div>
+      <div class="desc">适合体验/短期冲刺 · 无赠课</div>
+    </div>
+    <div class="pack active" onclick="pick(this)">
+      <div class="hot">🔥 热销</div>
+      <div class="top"><span class="name">钢琴一对一 · 20节</span><span class="tag">买20赠2</span><span class="tag gold">有效期12个月</span><span class="radio"></span></div>
+      <div class="price"><span class="rmb">¥</span><span class="num">3,600</span><span class="unit">折合 180 元/节</span><span class="orig">¥4,000</span></div>
+      <div class="desc">赠 2 节 · 22 节到账 · 一年有效 · 请假课时冻结不扣</div>
+    </div>
+    <div class="pack" onclick="pick(this)">
+      <div class="top"><span class="name">钢琴一对一 · 40节</span><span class="tag">买40赠5</span><span class="tag gold">有效期18个月</span><span class="radio"></span></div>
+      <div class="price"><span class="rmb">¥</span><span class="num">6,800</span><span class="unit">折合 170 元/节</span><span class="orig">¥7,600</span></div>
+      <div class="desc">赠 5 节（含暑期加赠 3 节）· 45 节到账 · 最适合长期学习</div>
+    </div>
+    <div class="pack" onclick="pick(this)">
+      <div class="top"><span class="name">小组课 1对2 · 20节</span><span class="tag">有效期12个月</span><span class="radio"></span></div>
+      <div class="price"><span class="rmb">¥</span><span class="num">2,400</span><span class="unit">折合 120 元/节</span></div>
+      <div class="desc">2 人小班 · 每节按 0.6 课时折算扣减</div>
+    </div>
+  </div>
+  <div class="footer">
+    <div class="row">
+      <span class="lb">支付方式</span><span class="pay">💚 微信支付</span>
+      <span class="amt">合计 <b>¥3,600</b></span>
+    </div>
+    <button class="btn">立即支付 ¥3,600</button>
+  </div>
+  <div class="tabbar">
+    <div><span class="i">🏠</span>首页</div>
+    <div><span class="i">🗓</span>课表</div>
+    <div class="active"><span class="i">⏱</span>课时</div>
+    <div><span class="i">👤</span>我的</div>
+  </div>
+</div>
+<script>
+function pick(el){document.querySelectorAll('.pack').forEach(p=>p.classList.remove('active'));el.classList.add('active')}
+</script>
+</body>
+</html>
