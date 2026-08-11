@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天韵艺术 · 教务后台 · 学员管理（原型）</title>
+<style>
+:root{--navy:#1e2a4a;--navy2:#28375e;--gold:#c9a227;--bg:#f2f4f9;--card:#fff;--line:#e6e9f0;--text:#2b3245;--muted:#8a93a8;--blue:#3b6ef5;--green:#23a55a;--red:#e5484d;--orange:#f0883a;--radius:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh}
+.sidebar{width:220px;background:var(--navy);color:#fff;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:10px;padding:22px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.brand .logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--gold),#8a6a12);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#fff}
+.brand .name{font-size:16px;font-weight:700;letter-spacing:1px}
+.brand .sub{font-size:10px;color:#9aa6c4;margin-top:2px}
+.nav{padding:14px 10px;flex:1;overflow:auto}
+.nav .grp{font-size:11px;color:#6f7c9e;padding:14px 12px 6px}
+.nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;color:#c6cde0;text-decoration:none;font-size:14px;margin-bottom:2px}
+.nav a .ico{width:18px;text-align:center}
+.nav a:hover{background:rgba(255,255,255,.07)}
+.nav a.active{background:linear-gradient(90deg,rgba(201,162,39,.25),rgba(201,162,39,.05));color:#ffd97a;font-weight:600}
+.sidebar .user{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;font-size:13px}
+.sidebar .user .av{width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+.main{flex:1;padding:20px 24px;min-width:0}
+.topbar{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.topbar h1{font-size:20px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 12px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.spacer{flex:1}
+.btn{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-size:13px;cursor:pointer;font-weight:600}
+.btn.gold{background:linear-gradient(135deg,var(--gold),#a8841c)}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:16px}
+.stat{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:14px 16px}
+.stat .n{font-size:24px;font-weight:800}
+.stat .l{font-size:12px;color:var(--muted);margin-top:2px}
+.stat .n.red{color:var(--red)}.stat .n.orange{color:var(--orange)}.stat .n.gold{color:var(--gold)}.stat .n.blue{color:var(--blue)}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-weight:600;padding:12px 14px;border-bottom:1px solid var(--line);background:#fafbfe;white-space:nowrap}
+td{padding:13px 14px;border-bottom:1px solid #f0f2f8;vertical-align:middle}
+tr:hover td{background:#fafbff}
+.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#3b6ef5,#7aa0f8);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-weight:700;margin-right:10px}
+.pill{font-size:11px;padding:2px 9px;border-radius:12px;font-weight:600;white-space:nowrap}
+.pill.green{background:#e8f7ee;color:var(--green)}.pill.orange{background:#fff3e6;color:var(--orange)}.pill.red{background:#ffecec;color:var(--red)}.pill.gray{background:#eef1f7;color:var(--muted)}.pill.blue{background:#e8f0ff;color:var(--blue)}
+.op{display:flex;gap:8px;justify-content:flex-end}
+.op button{border:none;border-radius:8px;padding:7px 12px;font-size:12.5px;cursor:pointer}
+.op .view{background:#eef1f7;color:var(--text)}.op .edit{background:#e8f0ff;color:var(--blue)}
+/* drawer */
+.mask{position:fixed;inset:0;background:rgba(20,26,46,.4);display:none;z-index:50}
+.mask.show{display:block}
+.drawer{position:fixed;top:0;right:-460px;width:460px;max-width:92vw;height:100vh;background:#fff;box-shadow:-12px 0 40px rgba(0,0,0,.18);transition:right .25s;z-index:51;overflow:auto}
+.drawer.show{right:0}
+.drawer .head{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:20px;display:flex;align-items:center}
+.drawer .head .x{margin-left:auto;cursor:pointer;font-size:22px;color:#aab4cf}
+.drawer .body{padding:20px}
+.d-section{margin-bottom:18px}
+.d-section h4{font-size:13px;color:var(--muted);margin-bottom:10px;border-bottom:1px dashed #eef1f7;padding-bottom:6px}
+.info-row{display:flex;justify-content:space-between;padding:8px 0;font-size:13.5px;border-bottom:1px dashed #f5f7fb}
+.info-row .k{color:var(--muted)}
+.mini-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.mini{background:#f8f9fd;border-radius:10px;padding:10px;text-align:center}
+.mini .n{font-size:18px;font-weight:800;color:var(--navy)}
+.mini .l{font-size:11px;color:var(--muted);margin-top:2px}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand"><div class="logo">天韵</div><div><div class="name">天韵艺术</div><div class="sub">钢琴学习管理平台</div></div></div>
+  <nav class="nav">
+    <div class="grp">经营管理</div>
+    <a href="principal-dashboard.html"><span class="ico">📊</span>数据看板</a>
+    <div class="grp">教务管理</div>
+    <a href="admin-schedule.html"><span class="ico">🗓</span>排课管理</a>
+    <a class="active" href="admin-students.html"><span class="ico">👧</span>学员管理</a>
+    <a href="#"><span class="ico">🎁</span>课时包</a>
+    <a href="admin-leave-approval.html"><span class="ico">📝</span>请假审批 <span style="margin-left:auto;background:#e5484d;color:#fff;border-radius:10px;font-size:10px;padding:1px 7px">3</span></a>
+    <a href="#"><span class="ico">🎹</span>教师管理</a>
+    <div class="grp">财务与设置</div>
+    <a href="#"><span class="ico">💰</span>财务报表</a>
+    <a href="#"><span class="ico">⚙️</span>系统设置</a>
+  </nav>
+  <div class="user"><div class="av">王</div><div>王教务 · 校区A</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <h1>学员管理</h1>
+    <div class="chip">📍 校区A</div>
+    <div class="spacer"></div>
+    <div class="chip">🔍 学员 / 手机号</div>
+    <div class="chip">🎹 全部课程</div>
+    <button class="btn gold">＋ 新增学员</button>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="n blue">128</div><div class="l">在读学员</div></div>
+    <div class="stat"><div class="n gold">18</div><div class="l">本月新增</div></div>
+    <div class="stat"><div class="n orange">12</div><div class="l">待续费（剩余≤2节）</div></div>
+    <div class="stat"><div class="n red">4</div><div class="l">流失预警（停课≥3周）</div></div>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>学员</th><th>联系电话</th><th>课程</th><th>剩余课时</th><th>最近上课</th><th>状态</th><th style="text-align:right">操作</th></tr></thead>
+      <tbody>
+        <tr><td><span class="av">乐</span><b>乐乐</b></td><td>138****2210</td><td>一对一</td><td><b style="color:var(--navy)">12.5</b> / 22</td><td>今天 10:00</td><td><span class="pill green">在读</span></td><td><div class="op"><button class="view" onclick="openDrawer()">详情</button><button class="edit">编辑</button></div></td></tr>
+        <tr><td><span class="av">糖</span><b>糖糖</b></td><td>139****8831</td><td>一对一</td><td><b style="color:var(--orange)">1.5</b> / 22</td><td>08-08 18:00</td><td><span class="pill orange">待续费</span></td><td><div class="op"><button class="view" onclick="openDrawer()">详情</button><button class="edit">编辑</button></div></td></tr>
+        <tr><td><span class="av">朵</span><b>朵朵</b></td><td>136****5567</td><td>一对一</td><td><b style="color:var(--navy)">8.0</b> / 22</td><td>今天 16:00</td><td><span class="pill green">在读</span></td><td><div class="op"><button class="view" onclick="openDrawer()">详情</button><button class="edit">编辑</button></div></td></tr>
+        <tr><td><span class="av">晨</span><b>晨晨</b></td><td>137****3320</td><td>考级辅导</td><td><b style="color:var(--red)">0</b> / 10</td><td>07-20 15:00</td><td><span class="pill red">流失预警</span></td><td><div class="op"><button class="view" onclick="openDrawer()">详情</button><button class="edit">编辑</button></div></td></tr>
+        <tr><td><span class="av">果</span><b>果果</b></td><td>135****9087</td><td>小组课1对3</td><td><b style="color:var(--navy)">5.0</b> / 10</td><td>08-09 14:00</td><td><span class="pill green">在读</span></td><td><div class="op"><button class="view" onclick="openDrawer()">详情</button><button class="edit">编辑</button></div></td></tr>
+        <tr><td><span class="av">彤</span><b>彤彤</b></td><td>138****7724</td><td>一对一</td><td><b style="color:var(--orange)">2.0</b> / 22</td><td>今天 11:00</td><td><span class="pill orange">待续费</span></td><td><div class="op"><button class="view" onclick="openDrawer()">详情</button><button class="edit">编辑</button></div></td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mask" id="mask" onclick="closeDrawer()"></div>
+<div class="drawer" id="drawer">
+  <div class="head"><div><b style="font-size:16px">乐乐 · 学员详情</b><br><span style="font-size:12px;color:#aab4cf">档案号 TY-2026-0031</span></div><span class="x" onclick="closeDrawer()">×</span></div>
+  <div class="body">
+    <div class="mini-stats">
+      <div class="mini"><div class="n">12.5</div><div class="l">剩余课时</div></div>
+      <div class="mini"><div class="n">96%</div><div class="l">到课率</div></div>
+      <div class="mini"><div class="n">3 级</div><div class="l">考级进度</div></div>
+    </div>
+    <div class="d-section">
+      <h4>基本信息</h4>
+      <div class="info-row"><span class="k">学员</span><span>乐乐 · 女 · 2016-03-12</span></div>
+      <div class="info-row"><span class="k">家长</span><span>乐乐妈（主要联系人）· 138****2210</span></div>
+      <div class="info-row"><span class="k">课程</span><span>钢琴一对一 · 李老师</span></div>
+      <div class="info-row"><span class="k">固定排课</span><span>周二 10:00 · 周六 16:00</span></div>
+    </div>
+    <div class="d-section">
+      <h4>课时包</h4>
+      <div class="info-row"><span class="k">一对一20节（买20赠2）</span><span>剩余 12.5 / 22</span></div>
+      <div class="info-row"><span class="k">有效期</span><span>2027-03-15 · 正常</span></div>
+    </div>
+    <div class="d-section">
+      <h4>近期动态</h4>
+      <div class="info-row"><span class="k">08-11</span><span>上课 · 消课 1.0 · 反馈已写</span></div>
+      <div class="info-row"><span class="k">07-20</span><span>购买课时包 ¥3,600</span></div>
+      <div class="info-row"><span class="k">07-15</span><span>请假（病假）已通过 · 课时冻结</span></div>
+    </div>
+  </div>
+</div>
+
+<script>
+function openDrawer(){document.getElementById('mask').classList.add('show');document.getElementById('drawer').classList.add('show')}
+function closeDrawer(){document.getElementById('mask').classList.remove('show');document.getElementById('drawer').classList.remove('show')}
+</script>
+</body>
+</html>
