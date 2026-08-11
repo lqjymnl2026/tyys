@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天韵艺术 · 教务后台 · 请假审批（原型）</title>
+<style>
+:root{--navy:#1e2a4a;--navy2:#28375e;--gold:#c9a227;--bg:#f2f4f9;--card:#fff;--line:#e6e9f0;--text:#2b3245;--muted:#8a93a8;--blue:#3b6ef5;--green:#23a55a;--red:#e5484d;--orange:#f0883a;--radius:12px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh}
+.sidebar{width:220px;background:var(--navy);color:#fff;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:10px;padding:22px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.brand .logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--gold),#8a6a12);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#fff}
+.brand .name{font-size:16px;font-weight:700;letter-spacing:1px}
+.brand .sub{font-size:10px;color:#9aa6c4;margin-top:2px}
+.nav{padding:14px 10px;flex:1;overflow:auto}
+.nav .grp{font-size:11px;color:#6f7c9e;padding:14px 12px 6px}
+.nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;color:#c6cde0;text-decoration:none;font-size:14px;margin-bottom:2px}
+.nav a .ico{width:18px;text-align:center}
+.nav a:hover{background:rgba(255,255,255,.07)}
+.nav a.active{background:linear-gradient(90deg,rgba(201,162,39,.25),rgba(201,162,39,.05));color:#ffd97a;font-weight:600}
+.sidebar .user{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;font-size:13px}
+.sidebar .user .av{width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700;color:#fff}
+.main{flex:1;padding:20px 24px;min-width:0}
+.topbar{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.topbar h1{font-size:20px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 12px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.spacer{flex:1}
+.tabs{display:flex;gap:8px;margin-bottom:14px}
+.tab{background:#fff;border:1px solid var(--line);border-radius:10px;padding:8px 16px;font-size:13px;cursor:pointer;color:var(--muted)}
+.tab.active{background:var(--navy);color:#fff;border-color:var(--navy);font-weight:600}
+.tab .c{background:var(--red);color:#fff;border-radius:10px;padding:0 7px;font-size:11px;margin-left:4px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);overflow:hidden}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{text-align:left;color:var(--muted);font-weight:600;padding:12px 14px;border-bottom:1px solid var(--line);background:#fafbfe;white-space:nowrap}
+td{padding:13px 14px;border-bottom:1px solid #f0f2f8;vertical-align:middle}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:#fafbff}
+.pill{font-size:11px;padding:2px 9px;border-radius:12px;font-weight:600;white-space:nowrap}
+.pill.wait{background:#fff3e6;color:var(--orange)}
+.pill.pass{background:#e8f7ee;color:var(--green)}
+.pill.rej{background:#ffecec;color:var(--red)}
+.op{display:flex;gap:8px}
+.op button{border:none;border-radius:8px;padding:7px 14px;font-size:12.5px;font-weight:600;cursor:pointer}
+.op .ok{background:var(--green);color:#fff}
+.op .no{background:#ffecec;color:var(--red)}
+.op .view{background:#eef1f7;color:var(--text)}
+/* modal */
+.mask{position:fixed;inset:0;background:rgba(20,26,46,.45);display:none;align-items:center;justify-content:center;z-index:50}
+.mask.show{display:flex}
+.modal{background:#fff;border-radius:14px;width:520px;max-width:92vw;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,.25)}
+.modal .head{background:linear-gradient(135deg,var(--navy),var(--navy2));color:#fff;padding:18px 20px;display:flex;align-items:center}
+.modal .head .x{margin-left:auto;cursor:pointer;font-size:20px;color:#aab4cf}
+.modal .body{padding:18px 20px}
+.info-row{display:flex;justify-content:space-between;padding:9px 0;border-bottom:1px dashed #eef1f7;font-size:13.5px}
+.info-row .k{color:var(--muted)}
+.modal .actions{display:flex;gap:10px;padding:16px 20px;border-top:1px solid var(--line)}
+.modal .actions button{flex:1;border:none;border-radius:9px;padding:11px;font-size:14px;font-weight:700;cursor:pointer}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand"><div class="logo">天韵</div><div><div class="name">天韵艺术</div><div class="sub">钢琴学习管理平台</div></div></div>
+  <nav class="nav">
+    <div class="grp">经营管理</div>
+    <a href="principal-dashboard.html"><span class="ico">📊</span>数据看板</a>
+    <div class="grp">教务管理</div>
+    <a href="admin-schedule.html"><span class="ico">🗓</span>排课管理</a>
+    <a href="admin-students.html"><span class="ico">👧</span>学员管理</a>
+    <a href="#"><span class="ico">🎁</span>课时包</a>
+    <a class="active" href="admin-leave-approval.html"><span class="ico">📝</span>请假审批 <span style="margin-left:auto;background:#e5484d;color:#fff;border-radius:10px;font-size:10px;padding:1px 7px">3</span></a>
+    <a href="#"><span class="ico">🎹</span>教师管理</a>
+    <div class="grp">财务与设置</div>
+    <a href="#"><span class="ico">💰</span>财务报表</a>
+    <a href="#"><span class="ico">⚙️</span>系统设置</a>
+  </nav>
+  <div class="user"><div class="av">王</div><div>王教务 · 校区A</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <h1>请假审批</h1>
+    <div class="chip">📍 校区A</div>
+    <div class="spacer"></div>
+    <div class="chip">🔍 学员 / 家长</div>
+  </div>
+  <div class="tabs">
+    <div class="tab active">待审批 <span class="c">3</span></div>
+    <div class="tab">已通过（今天 5）</div>
+    <div class="tab">已驳回（2）</div>
+  </div>
+
+  <div class="card">
+    <table>
+      <thead><tr><th>学员</th><th>请假课次</th><th>原因</th><th>申请时间</th><th>是否补课</th><th>状态</th><th style="text-align:right">操作</th></tr></thead>
+      <tbody>
+        <tr>
+          <td><b>糖糖</b><br><span style="color:var(--muted);font-size:12px">家长：乐乐妈</span></td>
+          <td>周三 08-12 18:00 一对一<br><span style="color:var(--muted);font-size:12px">李老师 · 钢琴房A</span></td>
+          <td>🤒 病假</td>
+          <td>08-11 09:32<br><span style="color:var(--muted);font-size:12px">提前 32h</span></td>
+          <td>是</td>
+          <td><span class="pill wait">待审批</span></td>
+          <td><div class="op" style="justify-content:flex-end"><button class="view" onclick="openModal()">详情</button><button class="ok">通过</button><button class="no">驳回</button></div></td>
+        </tr>
+        <tr>
+          <td><b>小雨</b><br><span style="color:var(--muted);font-size:12px">家长：小雨妈</span></td>
+          <td>周四 08-13 16:00 小组课<br><span style="color:var(--muted);font-size:12px">陈老师 · 多功能厅</span></td>
+          <td>✈️ 事假</td>
+          <td>08-11 10:05<br><span style="color:var(--muted);font-size:12px">提前 30h</span></td>
+          <td>否</td>
+          <td><span class="pill wait">待审批</span></td>
+          <td><div class="op" style="justify-content:flex-end"><button class="view" onclick="openModal()">详情</button><button class="ok">通过</button><button class="no">驳回</button></div></td>
+        </tr>
+        <tr>
+          <td><b>果果</b><br><span style="color:var(--muted);font-size:12px">家长：果果爸</span></td>
+          <td>今晚 19:00 一对一<br><span style="color:var(--muted);font-size:12px">李老师 · 钢琴房A</span></td>
+          <td>🌡 临时病假<br><span style="color:var(--orange);font-size:12px">⚠ 距上课不足 4h</span></td>
+          <td>08-11 16:40</td>
+          <td>是</td>
+          <td><span class="pill wait">待审批</span></td>
+          <td><div class="op" style="justify-content:flex-end"><button class="view" onclick="openModal()">详情</button><button class="ok">通过</button><button class="no">驳回</button></div></td>
+        </tr>
+        <tr>
+          <td><b>晨晨</b><br><span style="color:var(--muted);font-size:12px">家长：晨晨妈</span></td>
+          <td>周六 08-15 15:00 考级辅导<br><span style="color:var(--muted);font-size:12px">刘老师 · 钢琴房C</span></td>
+          <td>🏠 事假</td>
+          <td>08-10 18:12</td>
+          <td>是</td>
+          <td><span class="pill pass">已通过</span></td>
+          <td><div class="op" style="justify-content:flex-end"><button class="view" onclick="openModal()">详情</button></div></td>
+        </tr>
+        <tr>
+          <td><b>朵朵</b><br><span style="color:var(--muted);font-size:12px">家长：朵朵妈</span></td>
+          <td>周一 08-10 10:00 一对一<br><span style="color:var(--muted);font-size:12px">李老师 · 钢琴房A</span></td>
+          <td>其他（时间冲突）</td>
+          <td>08-09 21:00</td>
+          <td>否</td>
+          <td><span class="pill rej">已驳回</span></td>
+          <td><div class="op" style="justify-content:flex-end"><button class="view" onclick="openModal()">详情</button></div></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="mask" id="mask" onclick="if(event.target===this)this.classList.remove('show')">
+  <div class="modal">
+    <div class="head"><b>请假详情</b><span class="x" onclick="document.getElementById('mask').classList.remove('show')">×</span></div>
+    <div class="body">
+      <div class="info-row"><span class="k">学员</span><span>糖糖 · 钢琴一对一</span></div>
+      <div class="info-row"><span class="k">申请人</span><span>乐乐妈（妈妈）</span></div>
+      <div class="info-row"><span class="k">课次</span><span>周三 08-12 18:00-18:45 · 李老师 · 钢琴房A</span></div>
+      <div class="info-row"><span class="k">原因</span><span>🤒 病假（未上传凭证）</span></div>
+      <div class="info-row"><span class="k">备注</span><span>孩子感冒，医生说休息两天</span></div>
+      <div class="info-row"><span class="k">申请补课</span><span>是（自动进入补课池）</span></div>
+      <div class="info-row"><span class="k">规则校验</span><span style="color:var(--green)">✅ 提前 32h 申请，课时将冻结不扣减</span></div>
+      <div class="info-row"><span class="k">本月临时请假</span><span>第 1 次 / 免费 2 次</span></div>
+    </div>
+    <div class="actions">
+      <button style="background:#ffecec;color:var(--red)">驳回</button>
+      <button style="background:var(--green);color:#fff">通过并冻结课时</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function openModal(){document.getElementById('mask').classList.add('show')}
+</script>
+</body>
+</html>
