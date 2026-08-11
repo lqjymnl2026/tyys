@@ -3,82 +3,80 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>天韵艺术 · 钢琴学校管理平台</title>
+<title>天韵艺术 · 钢琴与音乐学校</title>
 <style>
-:root{--navy:#1e2a4a;--gold:#c9a227;--bg:#f2f4f9;--line:#e6e9f0;--text:#2b3245;--muted:#8a93a8}
+:root{--navy:#1e2a4a;--gold:#c9a227}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh}
-header{background:linear-gradient(135deg,var(--navy),#2b3a66);color:#fff;padding:34px 28px}
-header .logo{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--gold),#8a6a12);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px;margin-bottom:14px}
-header h1{font-size:24px}
-header p{color:#b9c3e0;font-size:13px;margin-top:6px}
-main{padding:24px 28px;max-width:1100px;margin:0 auto}
-h2{font-size:16px;margin:26px 0 12px;color:var(--navy);border-left:4px solid var(--gold);padding-left:10px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
-.card{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:var(--text);transition:transform .15s, box-shadow .15s}
-.card:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(30,42,74,.12)}
-.card .img{height:140px;background:#eef1f7;overflow:hidden;position:relative}
-.card .img img{width:100%;height:100%;object-fit:cover;object-position:top}
-.card .tag{position:absolute;top:8px;left:8px;background:rgba(30,42,74,.82);color:#ffd97a;font-size:11px;padding:3px 9px;border-radius:8px}
-.card .body{padding:12px 14px}
-.card .body .t{font-weight:700;font-size:14px}
-.card .body .d{font-size:12px;color:var(--muted);margin-top:4px}
-.docs{display:flex;flex-direction:column;gap:8px}
-.doc{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:10px;padding:11px 14px;text-decoration:none;color:var(--text);font-size:13.5px}
-.doc:hover{border-color:var(--gold)}
-.doc .ic{font-size:18px}
-.doc .n{flex:1}
-.doc .p{color:var(--muted);font-size:12px}
-footer{padding:24px 28px;color:var(--muted);font-size:12px;text-align:center}
-.cta{background:linear-gradient(135deg,#fff8e6,#fffdf5);border:1px solid #e8d79a;border-radius:14px;padding:18px 22px;display:flex;align-items:center;gap:16px;margin-top:20px}
-.cta .cta-t{font-size:17px;font-weight:800;color:var(--navy)}
-.cta .cta-d{font-size:12.5px;color:var(--muted);margin-top:4px}
-.cta .cta-btn{margin-left:auto;background:linear-gradient(135deg,var(--gold),#a8841c);color:#fff;text-decoration:none;border-radius:10px;padding:11px 20px;font-weight:700;font-size:14px;white-space:nowrap}
-.cta .cta-btn:hover{filter:brightness(1.06)}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:#f2f4f9;color:#2b3245;min-height:100vh}
+.hero{background:linear-gradient(135deg,#1e2a4a 0%,#2b3a66 60%,#3d4f85 100%);color:#fff;padding:26px 40px 46px}
+.brand{display:flex;align-items:center;gap:14px}
+.logo{width:46px;height:46px;border-radius:13px;background:linear-gradient(135deg,#c9a227,#8a6a12);display:flex;align-items:center;justify-content:center;font-size:19px;font-weight:800}
+.brand-text .name{font-size:19px;font-weight:800;letter-spacing:2px}
+.brand-text .slogan{font-size:12px;color:#b9c3e0;margin-top:3px}
+.quick{margin-left:auto;display:flex;gap:10px}
+.q-btn{border:1px solid rgba(255,255,255,.35);background:rgba(255,255,255,.1);color:#fff;border-radius:20px;padding:7px 18px;font-size:13px;font-weight:600;cursor:pointer}
+.q-btn:hover{background:rgba(255,255,255,.22)}
+.q-btn.parent{border-color:#6f9bff;background:rgba(59,110,245,.35)}
+.hero-body{margin-top:34px;text-align:center}
+.hero-body h1{font-size:30px;letter-spacing:4px}
+.hero-body .lead{color:#c9d4f2;font-size:14px;margin:10px 0 16px}
+.chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+.chips span{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:4px 13px;font-size:12px}
+.role-panel{max-width:900px;margin:-16px auto 0;background:#fff;border-radius:14px;padding:18px 22px;box-shadow:0 14px 36px rgba(30,42,74,.14);display:none}
+.role-panel.show{display:block}
+.rp-title{font-size:13px;color:#8a93a8;margin-bottom:12px}
+.role-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.role{border:1px solid #e6e9f0;border-radius:12px;padding:14px;cursor:pointer;text-decoration:none;color:#2b3245;transition:all .15s;display:block}
+.role:hover{border-color:#c9a227;background:#fffdf5;transform:translateY(-2px)}
+.role .r-ic{font-size:26px}
+.role b{display:block;margin:6px 0 4px;font-size:14px}
+.role span{font-size:11.5px;color:#8a93a8;line-height:1.5;display:block}
+.features{max-width:1080px;margin:30px auto 0;display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 24px}
+.feat{background:#fff;border:1px solid #e6e9f0;border-radius:14px;padding:18px;display:flex;flex-direction:column;gap:6px}
+.feat .f-ic{font-size:26px}
+.feat b{font-size:14px}
+.feat span{font-size:12px;color:#8a93a8}
+.more{text-align:center;margin:26px 0}
+.more a{color:#8a93a8;font-size:12.5px;text-decoration:none;border-bottom:1px dashed #c9d0dd}
+footer{text-align:center;color:#8a93a8;font-size:12px;padding:26px}
+@media(max-width:800px){.features{grid-template-columns:1fr 1fr}.role-grid{grid-template-columns:1fr 1fr}.quick{flex-direction:column}}
 </style>
 </head>
 <body>
-<header>
-  <div class="logo">天韵</div>
-  <h1>天韵艺术 · 钢琴学校管理平台</h1>
-  <p>展示站 · 页面原型（HTML） + 方案文档 + 工程骨架</p>
-</header>
-<main>
-  <div class="cta">
-    <div>
-      <div class="cta-t">✅ 系统功能全景 · 已完成 20 大模块（含角色门户）</div>
-      <div class="cta-d">数据看板 · 年度计划 · 排课 · 学员导入导出 · 乐器版块 · 大师课 · 考级 · 钢琴保养 · 教学内容 · 教师考核 · AI×4 · 微信 · 备份 · 角色门户</div>
+<div class="hero">
+  <div class="brand">
+    <div class="logo">天韵</div>
+    <div class="brand-text"><div class="name">天韵艺术</div><div class="slogan">钢琴与音乐学习管理平台 · 让每一份热爱都被看见</div></div>
+    <div class="quick">
+      <a class="q-btn parent" href="promo.html">我是家长</a>
+      <button class="q-btn" onclick="document.getElementById('roles').classList.toggle('show')">我是老师 ▾</button>
     </div>
-    <a class="cta-btn" href="promo.html" style="margin-left:8px">🎯 推广落地页</a>
-    <a class="cta-btn" href="system.html">查看全部 →</a>
   </div>
-  <h2>📱 页面原型预览（7 个）</h2>
-  <div class="grid">
-    <a class="card" href="prototypes/admin-schedule.html"><span class="img"><img src="prototypes/admin-schedule.png"><span class="tag">教务 · Web</span></span><span class="body"><div class="t">后台 · 排课管理</div><div class="d">周课表 / 今日待办 / 点名弹窗</div></span></a>
-    <a class="card" href="prototypes/admin-students.html"><span class="img"><img src="prototypes/admin-students.png"><span class="tag">教务 · Web</span></span><span class="body"><div class="t">后台 · 学员管理</div><div class="d">统计 / 列表 / 详情抽屉</div></span></a>
-    <a class="card" href="prototypes/admin-leave-approval.html"><span class="img"><img src="prototypes/admin-leave-approval.png"><span class="tag">教务 · Web</span></span><span class="body"><div class="t">后台 · 请假审批</div><div class="d">规则校验 / 通过即冻结课时</div></span></a>
-    <a class="card" href="prototypes/principal-dashboard.html"><span class="img"><img src="prototypes/principal-dashboard.png"><span class="tag">校长 · Web</span></span><span class="body"><div class="t">校长 · 经营看板</div><div class="d">KPI / 图表 / 流失预警 / 日报</div></span></a>
-    <a class="card" href="prototypes/teacher-app.html"><span class="img"><img src="prototypes/teacher-app.png"><span class="tag">教师 · 小程序</span></span><span class="body"><div class="t">教师端 · 今日课表</div><div class="d">点名消课 / 课后反馈 / 课酬</div></span></a>
-    <a class="card" href="prototypes/parent-lessons.html"><span class="img"><img src="prototypes/parent-lessons.png"><span class="tag">家长 · 小程序</span></span><span class="body"><div class="t">家长端 · 课时中心</div><div class="d">剩余课时 / 课时包 / 流水</div></span></a>
-    <a class="card" href="prototypes/parent-buy.html"><span class="img"><img src="prototypes/parent-buy.png"><span class="tag">家长 · 小程序</span></span><span class="body"><div class="t">家长端 · 购买课时包</div><div class="d">选包 / 微信支付结算</div></span></a>
+  <div class="hero-body">
+    <h1>学校品牌展示</h1>
+    <p class="lead">一站式管理平台 · 20+ 功能模块 · AI 赋能教学与运营</p>
+    <div class="chips"><span>AI 陪练</span><span>校长大师课</span><span>考级体系</span><span>8 大乐器</span><span>成长周报</span><span>教师考核</span></div>
   </div>
+</div>
 
-  <h2>📄 方案与文档</h2>
-  <div class="docs">
-    <a class="doc" href="README-方案总览.md"><span class="ic">📘</span><span class="n">方案总览</span><span class="p">README-方案总览.md</span></a>
-    <a class="doc" href="01-家长端小程序页面清单.md"><span class="ic">🧩</span><span class="n">家长端页面清单（24 页）</span><span class="p">01-家长端小程序页面清单.md</span></a>
-    <a class="doc" href="02-课时计算规则表.md"><span class="ic">🧮</span><span class="n">课时计算规则表</span><span class="p">02-课时计算规则表.md</span></a>
-    <a class="doc" href="03-数据库表结构设计.md"><span class="ic">🗄</span><span class="n">数据库表结构设计（含 DDL）</span><span class="p">03-数据库表结构设计.md</span></a>
-    <a class="doc" href="04-开发排期表.md"><span class="ic">📅</span><span class="n">开发排期表（人日+甘特图）</span><span class="p">04-开发排期表.md</span></a>
-    <a class="doc" href="sql/00-sys_config_init.sql"><span class="ic">⚙️</span><span class="n">规则参数初始化 SQL</span><span class="p">sql/00-sys_config_init.sql</span></a>
+<div class="role-panel" id="roles">
+  <div class="rp-title">选择登录端口</div>
+  <div class="role-grid">
+    <a class="role" href="system.html"><div class="r-ic">👨‍🏫</div><b>教师端</b><span>课表 · AI 教案 · 教学内容 · 考核</span></a>
+    <a class="role" href="system.html"><div class="r-ic">👑</div><b>园长 / 校长端</b><span>经营看板 · 全部管理模块</span></a>
+    <a class="role" href="system.html"><div class="r-ic">🧑‍💼</div><b>教务长端</b><span>排课 · 学员 · 考级 · 教务管理</span></a>
+    <a class="role" href="system.html"><div class="r-ic">🧰</div><b>后勤 / 行政端</b><span>备份 · 钢琴保养 · 系统设置</span></a>
   </div>
+</div>
 
-  <h2>💻 工程骨架</h2>
-  <div class="docs">
-    <a class="doc" href="code/tianyin-platform/README.md"><span class="ic">🚀</span><span class="n">Vue3 + NestJS + MySQL 工程说明</span><span class="p">code/tianyin-platform/README.md</span></a>
-    <a class="doc" href="code/tianyin-platform/docker-compose.yml"><span class="ic">🐳</span><span class="n">本地依赖 docker-compose（MySQL+Redis）</span><span class="p">code/tianyin-platform/docker-compose.yml</span></a>
-  </div>
-</main>
-<footer>天韵艺术管理平台 · 展示站 v1.0（纯静态，无后端依赖）</footer>
+<div class="features">
+  <div class="feat"><div class="f-ic">🤖</div><b>AI 教学</b><span>教案辅助 / 陪练点评 / 考级计划</span></div>
+  <div class="feat"><div class="f-ic">📊</div><b>经营看板</b><span>营收 / 消课 / 续费 / 流失预警</span></div>
+  <div class="feat"><div class="f-ic">💬</div><b>微信对接</b><span>家长通知 / 员工企业微信</span></div>
+  <div class="feat"><div class="f-ic">💾</div><b>数据安全</b><span>一键备份 / 定时备份</span></div>
+</div>
+
+<div class="more"><a href="system.html">查看系统功能全景（20 模块）与方案文档 →</a></div>
+<footer>天韵艺术 · 钢琴学校管理平台 · 内部门户</footer>
 </body>
 </html>
