@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天韵艺术 · 系统功能全景</title>
+<style>
+:root{--navy:#1e2a4a;--gold:#c9a227;--bg:#f2f4f9;--line:#e6e9f0;--text:#2b3245;--muted:#8a93a8;--green:#23a55a;--blue:#3b6ef5}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text)}
+header{background:linear-gradient(135deg,var(--navy),#2b3a66);color:#fff;padding:32px 28px}
+header .crumb{color:#9aa6c4;font-size:12px;margin-bottom:10px}
+header .crumb a{color:#ffd97a;text-decoration:none}
+header h1{font-size:24px}
+header p{color:#b9c3e0;font-size:13px;margin-top:6px}
+main{padding:24px 28px;max-width:1180px;margin:0 auto}
+h2{font-size:16px;margin:26px 0 12px;color:var(--navy);border-left:4px solid var(--gold);padding-left:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:14px}
+.mod{background:#fff;border:1px solid var(--line);border-radius:12px;padding:16px}
+.mod .head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.mod .head .ic{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:17px}
+.mod .head b{font-size:15px}
+.mod .badge{margin-left:auto;font-size:10.5px;background:#e8f7ee;color:var(--green);padding:2px 8px;border-radius:10px;font-weight:600}
+.mod ul{padding-left:18px;font-size:12.5px;color:#4a5368;line-height:1.9}
+.mod .api{margin-top:8px;background:#f7f8fc;border-radius:8px;padding:8px 10px;font-size:11px;color:var(--muted);font-family:ui-monospace,Menlo,monospace}
+.mod .proto{margin-top:8px;font-size:12px}
+.mod .proto a{color:var(--blue);text-decoration:none;margin-right:8px}
+.tag{display:inline-block;font-size:10px;padding:1px 7px;border-radius:8px;background:#eef1f7;color:var(--muted);margin-right:4px}
+table{width:100%;border-collapse:collapse;font-size:12.5px;background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+th{background:#fafbfe;text-align:left;padding:10px 12px;color:var(--muted);border-bottom:1px solid var(--line)}
+td{padding:10px 12px;border-bottom:1px solid #f0f2f8}
+code{background:#eef1f7;padding:1px 6px;border-radius:6px;font-size:11.5px}
+footer{padding:24px 28px;color:var(--muted);font-size:12px;text-align:center}
+</style>
+</head>
+<body>
+<header>
+  <div class="crumb"><a href="index.html">← 返回预览首页</a></div>
+  <h1>天韵艺术 · 系统功能全景</h1>
+  <p>后台管理 v1.0 已实现模块总览（工程骨架：Vue3 + NestJS + Prisma + MySQL）</p>
+</header>
+<main>
+
+  <h2>🧩 已实现模块（20 大模块）</h2>
+
+  <h2>📋 全部模块总览（20 个）</h2>
+  <table>
+    <thead><tr><th>模块</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>🏠 角色门户</td><td>品牌展示 + 家长端 / 教师·园长·教务·后勤 多端口登录</td></tr>
+      <tr><td>📊 数据看板</td><td>营收 / 消课 / 到课率 / 新增学员</td></tr>
+      <tr><td>📅 年度计划</td><td>六大维度全年规划 + AI 年度计划草稿</td></tr>
+      <tr><td>🗓 排课管理</td><td>排课模板 → 课次生成 → 周视图</td></tr>
+      <tr><td>👧 学员管理</td><td>档案 + CSV 导入/导出</td></tr>
+      <tr><td>🎼 乐器版块</td><td>钢琴/小提琴/吉他/古筝/架子鼓/声乐/长笛/大提琴</td></tr>
+      <tr><td>🏆 学员展示</td><td>考级/音乐会/成长展示 + AI 均分</td></tr>
+      <tr><td>🎓 校长大师课</td><td>大师课发布 + 学员报名管理</td></tr>
+      <tr><td>📝 考级管理</td><td>考级发布 + 报名 + 成绩</td></tr>
+      <tr><td>🗓 AI 考级计划</td><td>按级别/日期生成三阶段备考计划</td></tr>
+      <tr><td>🎹 钢琴保养调律</td><td>保养提醒 + 调律预约 + 顺延</td></tr>
+      <tr><td>📚 老师教学内容</td><td>曲谱/教案/课件/视频资料库</td></tr>
+      <tr><td>🏅 教师考核</td><td>五维考核 + 全员均分看板</td></tr>
+      <tr><td>👤 员工权限</td><td>RBAC 角色分配 / 启用禁用 / 重置密码</td></tr>
+      <tr><td>💾 数据备份</td><td>一键备份 + 每日定时 + 保留策略</td></tr>
+      <tr><td>🤖 AI 陪练</td><td>提交练习 → AI 评分点评</td></tr>
+      <tr><td>🎵 AI 音乐学堂</td><td>AI 教案 / 随堂测验 / 课程库</td></tr>
+      <tr><td>🧑🏫 老师 AI 教案</td><td>结构化教案生成与历史沉淀</td></tr>
+      <tr><td>👨‍👩‍👧 家长 AI 陪练</td><td>练习概览 + 周计划 + AI 建议</td></tr>
+      <tr><td>💬 微信对接</td><td>家长模板消息 / 企业微信 / 发送记录</td></tr>
+    </tbody>
+  </table>
+
+  <div class="grid">
+    <div class="mod">
+      <div class="head"><span class="ic" style="background:#e8f0ff">📊</span><b>数据看板</b><span class="badge">已完成</span></div>
+      <ul><li>今日课次 / 到课率 / 本月消课 / 营收汇总</li><li>新增学员、经营日报</li></ul>
+      <div class="api">GET /api/reports/summary</div>
+      <div class="proto">原型：<a href="prototypes/principal-dashboard.html">校长看板</a></div>
+    </div>
+    <div class="mod">
+      <div class="head"><span class="ic" style="background:#eef4ff">🗓</span><b>排课管理</b><span class="badge">已完成</span></div>
+      <ul><li>排课模板 → 按日期批量生成课次</li><li>周课次视图、冲突检测（后续）</li></ul>
+      <div class="api">POST /schedules · POST /schedules/generate-sessions · GET /schedules/week</div>
+      <div class="proto">原型：<a href="prototypes/admin-schedule.html">后台课表</a></div>
+    </div>
+    <div class="mod">
+      <div class="head"><span class="ic" style="background:#e8f7ee">👧</span><b>学员管理</b><span class="badge">已完成</span></div>
+      <ul><li>学员档案、剩余课时、状态</li><li>✅ CSV 批量导入 / 导出（Excel 直接打开）</li></ul>
+      <div class="api">GET/POST /students · GET /students/export · POST /students/import</div>
+      <div class="proto">原型：<a href="prototypes/admin-students.html">学员管理</a></div>
+    </div>
+    <div class="mod">
+      <div class="head"><span class="ic" style="background:#fdf3d7">👤</span><b>员工权限</b><span class="badge">已完成</span></div>
+      <ul><li>员工列表 / 新增（教师可带职称课酬）</li><li>角色分配（RBAC）、启用禁用、重置密码</li></ul>
+      <div class="api">GET/POST /users · PATCH /users/:id/{role,status,password} · GET /users/roles</div>
+    </div>
+    <div class="mod">
+      <div class="head"><span class="ic" style="background:#ffecec">💾</span><b>数据备份</b><span class="badge">已完成</span></div>
+      <ul><li>✅ 一键备份（全表 JSON 快照）</li><li>✅ 定时备份（每天 02:00）+ 保留最近 N 份</li><li>下载 / 删除 / 防目录穿越</li></ul>
+      <div class="api">POST/GET /backup · GET /backup/info · GET /backup/download/:name · DELETE /backup/:name</div>
+    </div>
+    <div class="mod">
+      <div class="head"><span class="ic" style="background:#eef4ff">🎵</span><b>AI 陪练</b><span class="badge">已完成*</span></div>
+      <ul><li>提交练习 → AI 即时评分与点评</li><li>练习记录、统计（次数/时长/均分/近7天）</li><li>* 当前模拟 Provider，可替换真实 AI</li></ul>
+      <div class="api">POST/GET /ai-practice · GET /ai-practice/stats</div>
+    </div>
+    <div class="mod">
+      <div class="head"><span class="ic" style="background:#fdf3d7">🎓</span><b>AI 音乐学堂</b><span class="badge">已完成*</span></div>
+      <ul><li>AI 生成教案（可保存为课程）</li><li>AI 随堂测验（互动答题）</li><li>课程库管理</li></ul>
+      <div class="api">GET /ai-academy/lessons · POST /ai-academy/lesson-plan · POST /ai-academy/quiz</div>
+    </div>
+    <div class="mod">
+      <div class="head"><span class="ic" style="background:#e8f7ee">💬</span><b>微信对接</b><span class="badge">已完成*</span></div>
+      <ul><li>家长：微信授权绑定 + 模板消息（上课提醒/请假结果/课时不足…）</li><li>员工：企业微信应用消息</li><li>发送记录、模板配置状态</li><li>* 当前模拟 Provider，配置 AppID/Secret 即可真实对接</li></ul>
+      <div class="api">GET /wechat/config · POST /wechat/bind · POST /wechat/send · GET /wechat/messages</div>
+    </div>
+    <div class="mod">
+      <div class="head"><span class="ic" style="background:#eef1f7">📝</span><b>请假审批 / 课时</b><span class="badge">已完成</span></div>
+      <ul><li>家长请假 → 教务审批 → 课时冻结</li><li>核心消课：事务 + 乐观锁防并发</li><li>课时流水可对账</li></ul>
+      <div class="api">POST /leaves · POST /leaves/:id/approve · POST /lesson-accounts/consume</div>
+      <div class="proto">原型：<a href="prototypes/admin-leave-approval.html">请假审批</a> · <a href="prototypes/parent-lessons.html">课时中心</a></div>
+    </div>
+  </div>
+
+  <h2>🗄 数据库（Prisma · MySQL）</h2>
+  <table>
+    <thead><tr><th>分组</th><th>表</th><th>说明</th></tr></thead>
+    <tbody>
+      <tr><td>系统</td><td>User / Role</td><td>账号（含微信 openid）、角色</td></tr>
+      <tr><td>人员</td><td>Student / Teacher</td><td>学员、教师（含课酬）</td></tr>
+      <tr><td>课程</td><td>Course / CoursePackage</td><td>课程类型（消课系数）、课时包</td></tr>
+      <tr><td>教务</td><td>Enrollment / Schedule / ClassSession / Attendance / Leave</td><td>报名、排课模板、课次、点名、请假</td></tr>
+      <tr><td>课时</td><td>LessonAccount / LessonTransaction</td><td>课时账户（乐观锁）、流水</td></tr>
+      <tr><td>AI</td><td>AiPractice / AcademyLesson</td><td>AI 陪练记录、AI 课程</td></tr>
+      <tr><td>微信</td><td>WechatMessage</td><td>消息发送日志</td></tr>
+    </tbody>
+  </table>
+
+  <h2>🚀 运行方式</h2>
+  <table>
+    <thead><tr><th>步骤</th><th>命令</th></tr></thead>
+    <tbody>
+      <tr><td>1. 启动数据库</td><td><code>cd code/tianyin-platform && docker compose up -d</code></td></tr>
+      <tr><td>2. 初始化后端</td><td><code>cd backend && cp .env.example .env && pnpm install && pnpm run prisma:migrate && pnpm run prisma:seed</code></td></tr>
+      <tr><td>3. 启动后端</td><td><code>pnpm start:dev</code>（http://localhost:3000/api）</td></tr>
+      <tr><td>4. 启动前端</td><td><code>cd ../frontend && pnpm install && pnpm dev</code>（http://localhost:5173）</td></tr>
+      <tr><td>演示账号</td><td><code>13800000001 / 123456</code>（校长）</td></tr>
+    </tbody>
+  </table>
+
+</main>
+<footer>天韵艺术管理平台 · 系统功能全景 v1.0</footer>
+</body>
+</html>
