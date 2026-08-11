@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>天韵艺术 · 校长看板（原型）</title>
+<style>
+:root{
+  --navy:#1e2a4a; --navy2:#28375e; --gold:#c9a227; --gold2:#e0b83a;
+  --bg:#f2f4f9; --card:#fff; --line:#e6e9f0; --text:#2b3245; --muted:#8a93a8;
+  --blue:#3b6ef5; --green:#23a55a; --red:#e5484d; --orange:#f0883a; --purple:#8e63e0;
+  --radius:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);display:flex;min-height:100vh}
+.sidebar{width:220px;background:var(--navy);color:#fff;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;flex-shrink:0}
+.brand{display:flex;align-items:center;gap:10px;padding:22px 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.brand .logo{width:36px;height:36px;border-radius:9px;background:linear-gradient(135deg,var(--gold),#8a6a12);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:17px;color:#fff}
+.brand .name{font-size:16px;font-weight:700;letter-spacing:1px}
+.brand .sub{font-size:10px;color:#9aa6c4;margin-top:2px}
+.nav{padding:14px 10px;flex:1;overflow:auto}
+.nav .grp{font-size:11px;color:#6f7c9e;padding:14px 12px 6px}
+.nav a{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:9px;color:#c6cde0;text-decoration:none;font-size:14px;margin-bottom:2px}
+.nav a .ico{width:18px;text-align:center}
+.nav a:hover{background:rgba(255,255,255,.07)}
+.nav a.active{background:linear-gradient(90deg,rgba(201,162,39,.25),rgba(201,162,39,.05));color:#ffd97a;font-weight:600}
+.sidebar .user{padding:16px 20px;border-top:1px solid rgba(255,255,255,.08);display:flex;align-items:center;gap:10px;font-size:13px}
+.sidebar .user .av{width:32px;height:32px;border-radius:50%;background:var(--gold);display:flex;align-items:center;justify-content:center;font-weight:700}
+.main{flex:1;padding:20px 24px;min-width:0}
+.topbar{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.topbar h1{font-size:20px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:9px;padding:7px 12px;font-size:13px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.spacer{flex:1}
+.btn{background:var(--navy);color:#fff;border:none;border-radius:9px;padding:9px 16px;font-size:13px;cursor:pointer;font-weight:600}
+/* KPI */
+.kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:18px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.kpi .lb{font-size:12.5px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.kpi .n{font-size:26px;font-weight:800;margin:8px 0 4px;letter-spacing:-.5px}
+.kpi .up{font-size:11.5px;color:var(--green);font-weight:600}
+.kpi .down{font-size:11.5px;color:var(--red);font-weight:600}
+.kpi .up::before{content:'▲ '}.kpi .down::before{content:'▼ '}
+/* Charts grid */
+.charts{display:grid;grid-template-columns:2fr 1fr;gap:14px;margin-bottom:14px}
+.charts2{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+.card{background:#fff;border:1px solid var(--line);border-radius:var(--radius);padding:16px}
+.card h3{font-size:15px;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.card .sub{font-size:11.5px;color:var(--muted);margin-bottom:12px}
+.legend{display:flex;gap:14px;font-size:11.5px;color:var(--muted);margin-left:auto}
+.legend .dot{width:9px;height:9px;border-radius:3px;display:inline-block;margin-right:5px}
+/* table */
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th{text-align:left;color:var(--muted);font-weight:600;padding:8px 10px;border-bottom:1px solid var(--line);background:#fafbfe}
+td{padding:9px 10px;border-bottom:1px solid #f0f2f8}
+tr:last-child td{border-bottom:none}
+.pill{font-size:11px;padding:2px 9px;border-radius:12px;font-weight:600}
+.pill.green{background:#e8f7ee;color:var(--green)}
+.pill.red{background:#ffecec;color:var(--red)}
+.pill.orange{background:#fff3e6;color:var(--orange)}
+.pill.blue{background:#e8f0ff;color:var(--blue)}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="brand"><div class="logo">天韵</div><div><div class="name">天韵艺术</div><div class="sub">钢琴学习管理平台</div></div></div>
+  <nav class="nav">
+    <div class="grp">经营管理</div>
+    <a class="active" href="principal-dashboard.html"><span class="ico">📊</span>数据看板</a>
+    <div class="grp">教务管理</div>
+    <a href="admin-schedule.html"><span class="ico">🗓</span>排课管理</a>
+    <a href="#"><span class="ico">👧</span>学员管理</a>
+    <a href="#"><span class="ico">🎁</span>课时包</a>
+    <a href="#"><span class="ico">📝</span>请假审批</a>
+    <a href="#"><span class="ico">🎹</span>教师管理</a>
+    <div class="grp">财务与设置</div>
+    <a href="#"><span class="ico">💰</span>财务报表</a>
+    <a href="#"><span class="ico">⚙️</span>系统设置</a>
+  </nav>
+  <div class="user"><div class="av">张</div><div>张校长 · 全部校区</div></div>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <h1>经营数据看板</h1>
+    <div class="chip">📍 全部校区</div>
+    <div class="chip">📅 2026-08-11</div>
+    <div class="chip">🗓 近 30 天</div>
+    <div class="spacer"></div>
+    <button class="btn">🔄 刷新数据</button>
+  </div>
+
+  <!-- KPI -->
+  <div class="kpis">
+    <div class="kpi"><div class="lb">💰 本月营收</div><div class="n">¥86,400</div><div class="up">12.4% 较上月</div></div>
+    <div class="kpi"><div class="lb">🎵 本月消课</div><div class="n">1,245</div><div class="up">6.8% 较上月</div></div>
+    <div class="kpi"><div class="lb">✅ 到课率</div><div class="n">94.2%</div><div class="up">1.1% 较上月</div></div>
+    <div class="kpi"><div class="lb">👧 新增学员</div><div class="n">18</div><div class="up">3 较上月</div></div>
+    <div class="kpi"><div class="lb">🔄 续费率</div><div class="n">68%</div><div class="down">-2% 较上月</div></div>
+  </div>
+
+  <!-- Charts row 1 -->
+  <div class="charts">
+    <div class="card">
+      <h3>营收趋势（近 6 个月）<span class="legend"><span><i class="dot" style="background:var(--gold)"></i>营收(万元)</span><span><i class="dot" style="background:var(--blue)"></i>消课(百节)</span></span></h3>
+      <div class="sub">单位：左轴万元 / 右轴百节</div>
+      <svg viewBox="0 0 560 220" width="100%" height="220">
+        <!-- grid -->
+        <g stroke="#eef1f7">
+          <line x1="50" y1="20" x2="540" y2="20"/><line x1="50" y1="65" x2="540" y2="65"/>
+          <line x1="50" y1="110" x2="540" y2="110"/><line x1="50" y1="155" x2="540" y2="155"/><line x1="50" y1="200" x2="540" y2="200"/>
+        </g>
+        <g font-size="10" fill="#8a93a8" text-anchor="end">
+          <text x="44" y="23">8</text><text x="44" y="68">6</text><text x="44" y="113">4</text><text x="44" y="158">2</text><text x="44" y="203">0</text>
+        </g>
+        <!-- bars (revenue, 万元) -->
+        <g>
+          <rect x="80" y="95" width="34" height="105" rx="4" fill="#c9a227"/><rect x="80" y="95" width="34" height="0" rx="4" fill="#c9a227"/>
+          <rect x="158" y="70" width="34" height="130" rx="4" fill="#c9a227"/>
+          <rect x="236" y="110" width="34" height="90" rx="4" fill="#c9a227"/>
+          <rect x="314" y="60" width="34" height="140" rx="4" fill="#c9a227"/>
+          <rect x="392" y="45" width="34" height="155" rx="4" fill="#c9a227"/>
+          <rect x="470" y="35" width="34" height="165" rx="4" fill="#e0b83a"/>
+        </g>
+        <!-- line (消课, 百节) -->
+        <polyline points="97,150 175,130 253,140 331,100 409,85 487,60" fill="none" stroke="#3b6ef5" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <g fill="#3b6ef5">
+          <circle cx="97" cy="150" r="3.5"/><circle cx="175" cy="130" r="3.5"/><circle cx="253" cy="140" r="3.5"/><circle cx="331" cy="100" r="3.5"/><circle cx="409" cy="85" r="3.5"/><circle cx="487" cy="60" r="3.5"/>
+        </g>
+        <g font-size="11" fill="#8a93a8" text-anchor="middle">
+          <text x="97" y="216">3月</text><text x="175" y="216">4月</text><text x="253" y="216">5月</text><text x="331" y="216">6月</text><text x="409" y="216">7月</text><text x="487" y="216">8月</text>
+        </g>
+        <text x="487" y="28" font-size="10" fill="#e0b83a" text-anchor="middle" font-weight="700">8.6万</text>
+        <text x="487" y="50" font-size="10" fill="#3b6ef5" text-anchor="middle">12.5百节</text>
+      </svg>
+    </div>
+    <div class="card">
+      <h3>课程结构</h3>
+      <div class="sub">按消课课时占比</div>
+      <div style="display:flex;align-items:center;gap:8px">
+        <svg viewBox="0 0 120 120" width="130" height="130">
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#eef1f7" stroke-width="22"/>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#3b6ef5" stroke-width="22" stroke-dasharray="180 289" stroke-linecap="butt" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#8e63e0" stroke-width="22" stroke-dasharray="65 289" stroke-dashoffset="-180" transform="rotate(-90 60 60)"/>
+          <circle cx="60" cy="60" r="46" fill="none" stroke="#23a55a" stroke-width="22" stroke-dasharray="44 289" stroke-dashoffset="-245" transform="rotate(-90 60 60)"/>
+          <text x="60" y="56" text-anchor="middle" font-size="20" font-weight="800" fill="#2b3245">1,245</text>
+          <text x="60" y="72" text-anchor="middle" font-size="10" fill="#8a93a8">总消课</text>
+        </svg>
+        <div style="flex:1;font-size:12.5px;display:flex;flex-direction:column;gap:8px">
+          <div><span style="color:#3b6ef5">■</span> 一对一 <b style="float:right">62%</b></div>
+          <div><span style="color:#8e63e0">■</span> 小组课 <b style="float:right">23%</b></div>
+          <div><span style="color:#23a55a">■</span> 考级辅导 <b style="float:right">15%</b></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts row 2 -->
+  <div class="charts2">
+    <div class="card">
+      <h3>教师课时排行（本月）<span class="legend">单位：课时</span></h3>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-top:14px">
+        <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px"><span>李老师 · 钢琴一对一</span><b>96</b></div><div class="bar" style="height:9px;background:#eef1f7;border-radius:6px"><div style="width:100%;height:100%;background:linear-gradient(90deg,var(--gold),#e0b83a);border-radius:6px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px"><span>张老师 · 钢琴一对一</span><b>88</b></div><div class="bar" style="height:9px;background:#eef1f7;border-radius:6px"><div style="width:92%;height:100%;background:linear-gradient(90deg,var(--gold),#e0b83a);border-radius:6px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px"><span>陈老师 · 小组课</span><b>64</b></div><div class="bar" style="height:9px;background:#eef1f7;border-radius:6px"><div style="width:67%;height:100%;background:linear-gradient(90deg,var(--blue),#7aa0f8);border-radius:6px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px"><span>刘老师 · 考级辅导</span><b>52</b></div><div class="bar" style="height:9px;background:#eef1f7;border-radius:6px"><div style="width:54%;height:100%;background:linear-gradient(90deg,var(--purple),#b09af0);border-radius:6px"></div></div></div>
+        <div><div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:5px"><span>王老师 · 小组课</span><b>41</b></div><div class="bar" style="height:9px;background:#eef1f7;border-radius:6px"><div style="width:43%;height:100%;background:linear-gradient(90deg,var(--purple),#b09af0);border-radius:6px"></div></div></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>流失预警学员</h3>
+      <div class="sub">连续 3 周以上未上课</div>
+      <table>
+        <thead><tr><th>学员</th><th>剩余课时</th><th>停课</th><th>状态</th></tr></thead>
+        <tbody>
+          <tr><td>晨晨</td><td>1.5</td><td>4 周</td><td><span class="pill red">高</span></td></tr>
+          <tr><td>糖糖</td><td>8.0</td><td>3 周</td><td><span class="pill orange">中</span></td></tr>
+          <tr><td>小雨</td><td>22.0</td><td>3 周</td><td><span class="pill orange">中</span></td></tr>
+          <tr><td>果果</td><td>5.0</td><td>3 周</td><td><span class="pill blue">跟进</span></td></tr>
+        </tbody>
+      </table>
+      <div style="margin-top:10px;font-size:12px;color:var(--blue);cursor:pointer">查看全部预警 ›</div>
+    </div>
+  </div>
+
+  <!-- 日报表 -->
+  <div class="card">
+    <h3>经营日报（近 7 天）</h3>
+    <div class="sub">每日凌晨自动汇总 · 2026-08-05 ~ 08-11</div>
+    <table>
+      <thead><tr><th>日期</th><th>新增学员</th><th>应上课次</th><th>实到</th><th>到课率</th><th>消课课时</th><th>当日营收</th></tr></thead>
+      <tbody>
+        <tr><td>08-11 周二</td><td>3</td><td>18</td><td>17</td><td><span class="pill green">94.4%</span></td><td>16.5</td><td>¥6,200</td></tr>
+        <tr><td>08-10 周一</td><td>1</td><td>15</td><td>14</td><td><span class="pill green">93.3%</span></td><td>14.0</td><td>¥3,600</td></tr>
+        <tr><td>08-09 周日</td><td>4</td><td>26</td><td>22</td><td><span class="pill orange">84.6%</span></td><td>21.0</td><td>¥12,800</td></tr>
+        <tr><td>08-08 周六</td><td>5</td><td>28</td><td>26</td><td><span class="pill green">92.9%</span></td><td>24.5</td><td>¥15,400</td></tr>
+        <tr><td>08-07 周五</td><td>2</td><td>14</td><td>13</td><td><span class="pill green">92.9%</span></td><td>12.5</td><td>¥4,800</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</body>
+</html>
